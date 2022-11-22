@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package me.tatiyanupanwong.supasin.android.libraries.kits.location;
+package me.tatiyanupanwong.supasin.android.libraries.kits.location.internal.huawei;
+
+import static androidx.annotation.RestrictTo.Scope.LIBRARY;
 
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -27,7 +29,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RestrictTo;
 
-import static androidx.annotation.RestrictTo.Scope.LIBRARY;
+import me.tatiyanupanwong.supasin.android.libraries.kits.location.LocationPlatform;
+import me.tatiyanupanwong.supasin.android.libraries.kits.location.internal.LocationFactory;
 
 /**
  * Initializes Location Kit on application startup.
@@ -40,7 +43,12 @@ public final class LocationKitInitProvider extends ContentProvider {
     @Override
     public void attachInfo(@NonNull Context context, @NonNull ProviderInfo info) {
         // super.attachInfo calls onCreate. Fail as early as possible.
-        LocationPlatform.init(context);
+        final LocationFactory locationFactory = HuaweiLocationFactory.buildIfSupported(context);
+        if (locationFactory == null) {
+            throw new IllegalStateException("Could not initialize google location provider");
+        }
+        LocationPlatform.init(locationFactory);
+        // Inicializar el GooglePlatformFactory o el HuaweiFactory dependiendo de la carpeta
         super.attachInfo(context, info);
     }
 

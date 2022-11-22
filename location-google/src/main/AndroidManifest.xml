@@ -15,4 +15,13 @@
   ~ limitations under the License.
 -->
 
-<manifest package="me.tatiyanupanwong.supasin.android.libraries.kits.location.internal.google" />
+<manifest package="me.tatiyanupanwong.supasin.android.libraries.kits.location.internal.google"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+    <application>
+        <provider
+            android:name=".LocationKitInitProvider"
+            android:authorities="${applicationId}.LocationKitInitProvider"
+            android:exported="false" />
+    </application>
+</manifest>

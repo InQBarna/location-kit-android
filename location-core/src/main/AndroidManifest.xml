@@ -23,11 +23,6 @@
 
     <application>
 
-        <provider
-            android:name=".LocationKitInitProvider"
-            android:authorities="${applicationId}.LocationKitInitProvider"
-            android:exported="false" />
-
     </application>
 
 </manifest>
